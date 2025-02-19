@@ -5,15 +5,12 @@ import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 
 export default function AddActivityScreen() {
     const [steps, setSteps] = useState<number>(0);
-    const activitiesContext = useActivitiesContext();
-    if (!activitiesContext) {
-        return <Text>Error: Activities context is not available.</Text>;
-    }
-    const { insertActivity } = activitiesContext;
+    const { insertActivity } = useActivitiesContext();
     return (
-        <View>
-            <Text>Add Activity Screen</Text>
+        <View style={styles.container}>
+            <Text style={styles.header}>Add Activity</Text>
             <TextInput
+                style={styles.steps}
                 placeholder="Enter steps"
                 keyboardType="number-pad"
                 onChangeText={(value) => setSteps(parseInt(value))}
@@ -40,13 +37,17 @@ const styles = StyleSheet.create({
         height: "100%",
         justifyContent: "center",
         alignItems: "center",
+        backgroundColor: "#FFF8DC",
+    },
+    header: {
+        fontSize: 24,
+        marginBottom: 16,
     },
     addbutton: {
         backgroundColor: "#1ED2AF",
         padding: 16,
         width: "100%",
         textAlign: "center",
-        marginBottom: 16,
       },
     button: {
         backgroundColor: "#D00414",
@@ -57,5 +58,11 @@ const styles = StyleSheet.create({
       buttonText: {
         color: "white",
         textAlign: "center",
+      },
+      steps: {
+        backgroundColor: "#fff",
+        padding: 16,
+        width: "100%",
+        marginBottom: 18,
       }
     });

@@ -22,6 +22,11 @@ export function useActivities() {
         reload();
     }
 
+    async function deleteAllActivities() {
+        await db.execSync("DELETE FROM activities");
+        reload();
+    }
+
     async function reload() {
         await getActivities();
     }
@@ -30,5 +35,5 @@ export function useActivities() {
        getActivities();
     }, []);
 
-    return { getActivities, activities, insertActivity};
+    return { getActivities, activities, insertActivity, deleteAllActivities};
 }

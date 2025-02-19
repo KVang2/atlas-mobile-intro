@@ -21,10 +21,10 @@ async function loadDatabase() {
 
 function useDB(){
     const [loaded, setLoaded] = useState(false);
+
     useEffect(() => {
         loadDatabase().then(() => setLoaded(true));
-    }
-    , [])
+    }, []);
 
     return { loaded };
 }
@@ -38,7 +38,7 @@ export function DatabaseProvider({ children }: {children: React.ReactNode}) {
 
     return (
         <Suspense fallback={<View></View>}>
-            <SQLite.SQLiteProvider useSuspense databaseName="activites.db">
+            <SQLite.SQLiteProvider useSuspense databaseName="activities.db">
                 {children}
             </SQLite.SQLiteProvider>
         </Suspense>
