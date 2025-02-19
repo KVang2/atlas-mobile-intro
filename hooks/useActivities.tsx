@@ -1,0 +1,34 @@
+import { useSQLiteContext } from "expo-sqlite";
+import { useEffect, useState } from "react";
+
+type Activity = {
+    id: number;
+    steps: number;
+    date: string;
+};
+
+export function useActivities() {
+    const [activities, setActivities] = useState<Activity[]>([]);
+
+    const db = useSQLiteContext();
+
+    async function getActivities() {
+        const data = await db.getAllSync<Activity>("SELECT * FROM activities");
+        setActivities(data);
+    }
+
+    async function insertActivity(steps: number, date: Date) {
+        await db.execSync(`INSERT INTO activities (steps, date) VALUES (${steps}, ${date.getTime()})`);
+        reload();
+    }
+
+    async function reload() {
+        await getActivities();
+    }
+
+    useEffect(() => {
+       getActivities();
+    }, []);
+
+    return { getActivities, activities, insertActivity};
+}
