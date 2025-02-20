@@ -32,6 +32,15 @@ export function useActivities() {
         }
     }
 
+    async function deleteActivity() {
+        try {
+            await db.execSync("DELETE FROM activities WHERE id = 1");
+            await getActivities();
+        } catch (error) {
+            console.error(error);
+        }  
+    }
+
     async function reload() {
         await getActivities();
     }

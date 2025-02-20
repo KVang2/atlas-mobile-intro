@@ -3,6 +3,7 @@ import { Link } from "expo-router"
 import { StyleSheet, Pressable, Text, View } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import Activity from "@/components/Activity";
+import SwipeableActivity from "@/components/SwipeableActivity";
 
 export default function Index() {
   const context = useActivitiesContext();
@@ -21,7 +22,7 @@ export default function Index() {
         data={activities}
         keyExtractor={(item) => item.id.toString()}
         estimatedItemSize={50}
-        renderItem={({ item }) => <Activity activity={item} />}
+        renderItem={({ item }) => <SwipeableActivity activity={item} />}
         contentContainerStyle={styles.list}
       />
 
