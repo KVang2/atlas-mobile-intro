@@ -12,6 +12,7 @@ export default function AddActivityScreen() {
             <TextInput
                 style={styles.steps}
                 placeholder="Enter steps"
+                placeholderTextColor="#888"
                 keyboardType="number-pad"
                 onChangeText={(value) => setSteps(parseInt(value))}
             />
