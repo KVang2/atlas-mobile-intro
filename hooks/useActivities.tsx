@@ -1,7 +1,8 @@
 import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
+import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
-type Activity = {
+export type Activity = {
     id: number;
     steps: number;
     date: string;
@@ -23,8 +24,12 @@ export function useActivities() {
     }
 
     async function deleteAllActivities() {
-        await db.execSync("DELETE FROM activities");
-        reload();
+        try {
+            await db.execSync("DELETE FROM activities");
+            await getActivities();
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     async function reload() {
@@ -35,5 +40,5 @@ export function useActivities() {
        getActivities();
     }, []);
 
-    return { getActivities, activities, insertActivity, deleteAllActivities};
+    return { getActivities, activities, insertActivity, deleteAllActivities };
 }

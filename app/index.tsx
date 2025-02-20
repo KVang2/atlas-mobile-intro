@@ -1,46 +1,39 @@
-import { useActivities } from "@/hooks/useActivities";
-import { Link, router } from "expo-router"
-import { Alert, StyleSheet, Pressable, Text, View } from "react-native";
+import { useActivitiesContext } from "@/components/ActivitiesProvider";
+import { Link } from "expo-router"
+import { StyleSheet, Pressable, Text, View } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import Activity from "@/components/Activity";
-import { Activity as ActivityType} from "@/hooks/useActivities";
 
 export default function Index() {
-  const { activities } = useActivities();
-
+  const context = useActivitiesContext();
+  if (!context) {
+    return null;
+  }
+  const { activities, deleteAllActivities } = context;
   return (
     <View style={styles.container}>
-      {/*<View style={styles.list}> */}
-      {activities.map((activity) => (
-        <Text style={styles.stepText} key={activity.id}>
-          {activity.steps} Steps: {" "}
-          {new Date(activity.date).toLocaleDateString()}
-        </Text>
-      ))}
-      
-      
-       {/* FlashList 
+        {/* {activities.map((activity) => (
+          <Activity activity={activity} key={activity.id} />
+        ))} */}
+
+      {/* FlashList */}
       <FlashList
-        renderItem={({ item }) =><Activity activity={item} />}
         data={activities}
+        keyExtractor={(item) => item.id.toString()}
         estimatedItemSize={50}
-        onRefresh={() => {
-          Alert.alert("Refresh");
-        }}
-        onEndReached={() => {
-          Alert.alert("End reached");
-        }}/>
-      </View>
-    */}
+        renderItem={({ item }) => <Activity activity={item} />}
+        contentContainerStyle={styles.list}
+      />
+
       {/* Add Activity Button */}
       <Link style={styles.button} href={"/add-activity-screen"} replace>
         <Text style={styles.buttonText}>Add Activity</Text>
       </Link>
 
-      {/* Delete all activities Button
+      {/* Delete all activities Button */}
       <Pressable style={styles.deletebutton} onPress={deleteAllActivities}>
         <Text style={styles.buttonText}>Delete all activities</Text>
-      </Pressable> */}
+      </Pressable>
     </View>
   );
 }
@@ -48,9 +41,10 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: "#FFF8DC",
+  },
+  list: {
+    paddingVertical: 10,
   },
   heading: {
     fontSize: 24,
@@ -69,6 +63,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white",
+    textAlign: "center",
   },
   stepText: {
     backgroundColor: "#fff",
