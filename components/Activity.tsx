@@ -1,26 +1,39 @@
 import { Activity as ActivityType } from "@/hooks/useActivities";
-import { StyleSheet, Text, } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function Activity({ activity }: { activity: ActivityType }) {
     return (
-        <Text style={styles.stepText}>
-            {activity.steps} Steps: {new Date(activity.date).toLocaleDateString()}
-        </Text>
+        <View style={styles.activityContainer}>
+            <Text style={styles.dateText}>
+                {new Date(activity.date).toLocaleString()} 
+            </Text>
+
+            <Text style={styles.stepText}>
+                Steps: {activity.steps}
+            </Text>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-    stepText: {
+    activityContainer: {
         backgroundColor: "#fff",
-        padding: 15,
-        paddingTop: 20,
-        paddingBottom: 20,
+        padding: 20,
         borderWidth: 3,
         width: "90%",
         alignContent: "center",
         marginLeft: "5%",
         marginRight: "5%",
-        marginTop: 10,
+        marginTop: 5,
         marginBottom: 5,
+        alignItems: "flex-start",
+    },
+    dateText: {
+        backgroundColor: "#fff",
+        fontSize: 10,
+    },
+    stepText: {
+        backgroundColor: "#fff",
+        fontSize: 20,
   },
 });

@@ -27,7 +27,7 @@ export default function Index() {
 
       {/* Add Activity Button */}
       <Link style={styles.button} href={"/add-activity-screen"} replace>
-        <Text style={styles.buttonText}>Add Activity</Text>
+        <Text style={styles.buttonText}>Add activity</Text>
       </Link>
 
       {/* Delete all activities Button */}

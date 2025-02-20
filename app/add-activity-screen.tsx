@@ -23,10 +23,10 @@ export default function AddActivityScreen() {
                 router.push("/");
             }}
             >
-                <Text style={styles.buttonText}>Add Activity</Text>
+                <Text style={styles.buttonText}>Add activity</Text>
             </Pressable>
             <Link style={styles.button} href={'/'} replace>
-                <Text style={styles.buttonText}>Go Back</Text>
+                <Text style={styles.buttonText}>Go back</Text>
             </Link>
         </View>
     );
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     header: {
         fontSize: 24,
         marginBottom: 16,
+        fontWeight: "bold",
     },
     addbutton: {
         backgroundColor: "#1ED2AF",
